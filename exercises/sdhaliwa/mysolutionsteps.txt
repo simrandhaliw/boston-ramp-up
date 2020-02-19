@@ -46,7 +46,7 @@ Step4] Run the container image with podman
 podman run app
 
 Step5] View the logs from the container run with podman
-First run: podman ls -a
+First run: podman ps -a
 Then find the container id or name for the image you built.
 For my image, name = brave_greider
 
