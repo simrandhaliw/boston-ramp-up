@@ -1,0 +1,11 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: time-server-operator
+subjects:
+- kind: ServiceAccount
+  name: time-server-operator
+roleRef:
+  kind: Role
+  name: time-server-operator
+  apiGroup: rbac.authorization.k8s.io
