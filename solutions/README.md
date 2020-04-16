@@ -22,7 +22,16 @@ Run the container image with podman
 View the logs from the container run with podman
 
 ### Solution 1: 
-1. Create a .go file 
+1. Create a dir to work in
+
+```
+mkdir containers-solutions
+```
+```
+cd containers-solutions
+```
+
+Create a .go file 
 
 ```
 // file.go
