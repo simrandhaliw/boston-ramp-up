@@ -575,7 +575,7 @@ kubectl delete -f deploy/service_account.yaml
 kubectl delete -f deploy/crds/timeserver.example.com_timeservers_crd.yaml
 kubectl delete service <service-name>
 ```
-
+ :metal:
 -------------
 ## Bonus
 Watch the node objects in the cluster as well. When the number of nodes change, adjust the amount deployed TimeServers
