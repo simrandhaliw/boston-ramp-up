@@ -149,3 +149,5 @@ podman pull quay.io/sdhaliwa/rampup
 podman run quay.io/sdhaliwa/rampup
 ```
 ------------ 
+
+ :clap:
