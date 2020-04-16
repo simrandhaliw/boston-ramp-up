@@ -346,3 +346,4 @@ minikube delete
 ```
 
 ---------------
+ :raised_hands:
