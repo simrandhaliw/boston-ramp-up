@@ -206,7 +206,7 @@ func (r *ReconcileTimeServer) deploymentForTimeServer(m *timeserverv1alpha1.Time
 				},
 				Spec: corev1.PodSpec{
 					Containers: []corev1.Container{{
-						Image: "quay.io/sdhaliwa/rampup-unix-time-server-app",
+						Image: "quay.io/sdhaliwa/time-zone-server-app",
 						Name:  "timeserver",
 						Ports: []corev1.ContainerPort{{
 							ContainerPort: 8080,
