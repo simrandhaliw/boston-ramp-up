@@ -1,14 +1,16 @@
-Self-help readme doc:
 
-Steps done to solve given exercises:
-_________________________________________________________________________________________
-Exercise 0:
+------------ 
+
+## Exercise 0:
 Read about and install the latest version of podman: https://podman.io/
 Work through the getting started page. You can skip the checkpoint-migrate steps
-Solution: (self-explanatory)
 
-_________________________________________________________________________________________
-Exercise 1:
+### Solution 0: 
+(self-explanatory)
+
+------------ 
+
+## Exercise 1:
 (Use https://docs.docker.com/engine/reference/builder/ as reference)
 Write a go program, which prints "Hello OpenShift" to stdout
 Create a dockerfile which uses the latest golang image as a base image. The dockerfile should ensure the following happens:
@@ -18,48 +20,77 @@ Create a dockerfile which uses the latest golang image as a base image. The dock
 Build a container image from the dockerfile with podman
 Run the container image with podman
 View the logs from the container run with podman
-Solution: 
-Step1] Create a go-file 
-I am choosing to use vim editor to create my go file:
-vi file.go
 
-Contents of the file:
+### Solution 1: 
+1. Create a .go file 
+
+```
+// file.go
 package main
 import "fmt"
 func main() {
  fmt.Println("Hello OpenShift!")
 }
+```
 
-Step2] Create a dockerfile:
-vi Dockerfile
+2. Create a dockerfile
 
-Contents of the file:
+```
+# Dockerfile
 FROM golang:latest AS GOAPP
 WORKDIR /app 
 COPY file.go file.go
 RUN go build -o main .
+```
 
-Step3] Build a container image from dockerfile with podman
+3. Build a container image from dockerfile with podman
+
+```
 podman build --tag app -f ./Dockerfile
+```
 
-Step4] Run the container image with podman
+Note: refer podman basic commands from [Podman Cheatsheet](https://developers.redhat.com/cheat-sheets/podman-basics/)
+
+4. Run the container image with podman
+
+```
 podman run app
+```
 
-Step5] View the logs from the container run with podman
-First run: podman ps -a
+5. View the logs from the container run with podman
+
+```
+podman ps 
+```
+
+Note: If you see nothing returned from this command, it is possible that your container has stopped working. 
+Try running the app again, and then open another terminal tab/window and try running the above command.
+
+or to see the logs, you can also run 
+
+```
+podman ps --all
+```
+
 Then find the container id or name for the image you built.
-For my image, name = brave_greider
+For exmple my image name = brave_greider
 
-To see logs: podman logs brave_greider
-_________________________________________________________________________________________
-Exercise 2:
+To see logs run
+
+```
+podman logs brave_greider
+```
+
+------------ 
+
+## Exercise 2:
 (Use https://docs.docker.com/develop/develop-images/multistage-build/ as reference)
 Do the above, but with a multi-stage build, copying the compiled binary to a second stage with ubi8 as a base image and running the executable there.
-Solution:
-add new content to the existing dockerfile:
-vi Dockerfile
 
-contents of file with new contents:
+###  Solution 2:
+Replace the existing Dockerfile content with the following content
+
+```
 FROM golang:latest AS GOAPP
 WORKDIR /app 
 COPY file.go file.go
@@ -69,30 +100,43 @@ FROM ubi8
 WORKDIR /app/
 COPY --from=GOAPP /app/main .
 ENTRYPOINT ["./main"]
+```
 
-_________________________________________________________________________________________
-Exercise 3:
+------------ 
+
+## Exercise 3:
 (Use https://docs.quay.io/solution/getting-started.html as reference)
 Go to quay and click sign in on the top right of the page. Click sign in with google, and log in with your Red Hat google account. This will create a quay account for you.
 Go to settings and create a CLI password.
 In your terminal run `podman login quay.io`
 Complete the login process using your new CLI password
 Push the image you created in exercise 2 to quay
-Solution:
-Open a web browser. Go to: https://quay.io/
-Log-in with Red Hat account credentials.
-Click on 'Create New Repository'.
 
-In terminal: podman login quay.io
-Enter credentials
+###  Solution 3:
 
-Then run: podman tag app quay.io/sdhaliwa/rampup
-(Note: your repo name path names will be different, so edit those accordingly to run above command)
-Next:  podman push quay.io/sdhaliwa/rampup
+```
+podman login quay.io
+```
+Enter your quay.io account credentials
+
+```
+podman tag app quay.io/sdhaliwa/rampup
+```
+Note: I chose my repository name as 'rampup'. You can choose any name.
+
+```
+podman push quay.io/sdhaliwa/rampup
+```
 
 Done!
 
-To check pulling and running your app from quay.io, follow these steps:
-podman pull quay.io/sdhaliwa/rampup
+To check if your app was successfully pushed to the quay.io repo, try pulling and running your app:
 
+```
+podman pull quay.io/sdhaliwa/rampup
+```
+
+```
 podman run quay.io/sdhaliwa/rampup
+```
+------------ 
